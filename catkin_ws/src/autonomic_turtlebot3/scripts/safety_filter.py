@@ -7,6 +7,7 @@ import threading
 from typing import Iterable, Optional
 
 import rospy
+from rospy.timer import TimerEvent
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import Bool, Float32, String
@@ -99,7 +100,7 @@ class SafetyFilter:
         }
         self._event_pub.publish(String(data=json.dumps(event, separators=(",", ":"))))
 
-    def _tick(self, _event: rospy.TimerEvent) -> None:
+    def _tick(self, _event: TimerEvent) -> None:
         with self._lock:
             now = rospy.Time.now()
             if (now - self._raw_stamp).to_sec() > self._command_timeout:

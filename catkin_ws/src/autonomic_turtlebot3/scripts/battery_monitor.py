@@ -6,6 +6,7 @@ import time
 from typing import Optional, Tuple
 
 import rospy
+from rospy.timer import TimerEvent
 from sensor_msgs.msg import BatteryState
 
 
@@ -59,7 +60,7 @@ class BatteryMonitor:
         fraction = (voltage - self._voltage_empty) / (self._voltage_full - self._voltage_empty)
         return voltage, current, max(0.0, min(1.0, fraction))
 
-    def _publish(self, _event: rospy.TimerEvent) -> None:
+    def _publish(self, _event: TimerEvent) -> None:
         try:
             voltage, current, fraction = self._read()
         except (OSError, RuntimeError, ValueError) as exc:

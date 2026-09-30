@@ -10,6 +10,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import actionlib
 import rospy
 import tf2_ros
+from rospy.timer import TimerEvent
 import yaml
 from actionlib_msgs.msg import GoalStatus
 from geometry_msgs.msg import Twist
@@ -376,7 +377,7 @@ class AutonomicManager:
             self._action_index += 1
             self._action_started_at = None
 
-    def _tick(self, event: rospy.TimerEvent) -> None:
+    def _tick(self, event: TimerEvent) -> None:
         with self._lock:
             self._update_localized_pose()
             self._check_stuck(event.current_real)

@@ -9,6 +9,7 @@ from typing import Any, Dict
 
 import paho.mqtt.client as mqtt
 import rospy
+from rospy.timer import TimerEvent
 from sensor_msgs.msg import BatteryState
 from std_msgs.msg import Bool, Float32, Int32, String
 from std_srvs.srv import Trigger
@@ -217,7 +218,7 @@ class MQTTBridge:
         event["kind"] = "mapek_event"
         self._client.publish(self._event_topic, self._secure.encrypt(event), qos=1)
 
-    def _publish_status(self, _event: rospy.TimerEvent) -> None:
+    def _publish_status(self, _event: TimerEvent) -> None:
         with self._lock:
             status = dict(self._status)
         status["stamp"] = rospy.Time.now().to_sec()

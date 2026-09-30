@@ -8,6 +8,7 @@ import threading
 from typing import Any
 
 import rospy
+from rospy.timer import TimerEvent
 from sensor_msgs.msg import BatteryState
 from std_msgs.msg import Float32, Int32, String
 
@@ -75,7 +76,7 @@ class KnowledgeLogger:
             },
         )
 
-    def _prune(self, _event: rospy.TimerEvent) -> None:
+    def _prune(self, _event: TimerEvent) -> None:
         retention_days = max(1, int(rospy.get_param("~retention_days", 90)))
         cutoff = rospy.Time.now().to_sec() - retention_days * 86400
         with self._lock:

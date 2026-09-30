@@ -8,6 +8,7 @@ from typing import Any, Dict
 
 import paho.mqtt.client as mqtt
 import rospy
+from rospy.timer import TimerEvent
 from sensor_msgs.msg import BatteryState
 from std_msgs.msg import String
 
@@ -106,7 +107,7 @@ class AuxiliaryMQTTBridge:
                 "percentage": finite(message.percentage),
             }
 
-    def _publish_status(self, _event: rospy.TimerEvent) -> None:
+    def _publish_status(self, _event: TimerEvent) -> None:
         with self._lock:
             payload = {
                 "kind": "auxiliary_status",
