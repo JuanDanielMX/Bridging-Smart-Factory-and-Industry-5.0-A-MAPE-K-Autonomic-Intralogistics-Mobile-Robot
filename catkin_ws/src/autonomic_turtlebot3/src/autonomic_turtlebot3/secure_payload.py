@@ -12,6 +12,7 @@ import os
 import time
 from typing import Any, Dict, Optional, Set
 
+from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes, padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
@@ -50,6 +51,7 @@ class SecurePayload:
             length=32,
             salt=None,
             info=info,
+            backend=default_backend(),
         ).derive(master_key)
 
     @staticmethod
@@ -72,7 +74,11 @@ class SecurePayload:
         padder = padding.PKCS7(128).padder()
         padded = padder.update(plaintext) + padder.finalize()
         iv = os.urandom(16)
-        encryptor = Cipher(algorithms.AES(self.encryption_key), modes.CBC(iv)).encryptor()
+        encryptor = Cipher(
+            algorithms.AES(self.encryption_key),
+            modes.CBC(iv),
+            backend=default_backend(),
+        ).encryptor()
         ciphertext = encryptor.update(padded) + encryptor.finalize()
         ts = int(time.time() if timestamp is None else timestamp)
         nonce = self._b64(os.urandom(12))
@@ -125,7 +131,11 @@ class SecurePayload:
             raise SecurePayloadError("invalid AES-CBC IV or ciphertext length")
 
         try:
-            decryptor = Cipher(algorithms.AES(self.encryption_key), modes.CBC(iv)).decryptor()
+            decryptor = Cipher(
+                algorithms.AES(self.encryption_key),
+                modes.CBC(iv),
+                backend=default_backend(),
+            ).decryptor()
             padded = decryptor.update(ciphertext) + decryptor.finalize()
             unpadder = padding.PKCS7(128).unpadder()
             plaintext = unpadder.update(padded) + unpadder.finalize()
