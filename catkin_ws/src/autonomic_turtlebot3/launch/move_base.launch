@@ -1,0 +1,13 @@
+<launch>
+  <arg name="cmd_vel_output" default="/cmd_vel_raw" />
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find autonomic_turtlebot3)/config/move_base.yaml" command="load" />
+    <rosparam file="$(find autonomic_turtlebot3)/config/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find autonomic_turtlebot3)/config/costmap_common.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find autonomic_turtlebot3)/config/global_costmap.yaml" command="load" />
+    <rosparam file="$(find autonomic_turtlebot3)/config/local_costmap.yaml" command="load" />
+    <rosparam file="$(find autonomic_turtlebot3)/config/dwa_local_planner.yaml" command="load" />
+    <remap from="cmd_vel" to="$(arg cmd_vel_output)" />
+  </node>
+</launch>

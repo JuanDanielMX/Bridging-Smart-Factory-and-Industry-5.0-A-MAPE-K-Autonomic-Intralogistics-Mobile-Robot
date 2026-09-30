@@ -1,0 +1,14 @@
+simulation: false
+step_pin: 18
+direction_pin: 23
+enable_pin: 24
+upper_limit_pin: 17
+lower_limit_pin: 27
+# NC switch to ground with a pull-up: closed/healthy=LOW, open/limit/fault=HIGH.
+limit_active_high: true
+limit_pull_up: true
+enable_active_low: true
+up_direction_high: true
+step_frequency_hz: 400.0
+max_travel_seconds: 8.0
+simulation_travel_seconds: 1.0

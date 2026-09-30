@@ -1,0 +1,14 @@
+<launch>
+  <arg name="model" default="waffle_pi" />
+  <arg name="mqtt_enabled" default="false" />
+  <env name="TURTLEBOT3_MODEL" value="$(arg model)" />
+
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch" />
+  <include file="$(find autonomic_turtlebot3)/launch/host_slam.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="mission_file" value="$(find autonomic_turtlebot3)/missions/simulation_demo.yaml" />
+    <arg name="mqtt_enabled" value="$(arg mqtt_enabled)" />
+    <arg name="start_auxiliary" value="true" />
+    <arg name="simulate_auxiliary" value="true" />
+  </include>
+</launch>

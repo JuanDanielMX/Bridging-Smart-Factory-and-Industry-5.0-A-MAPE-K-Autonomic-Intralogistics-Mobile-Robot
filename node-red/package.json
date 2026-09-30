@@ -1,0 +1,9 @@
+{
+  "name": "autonomic-turtlebot3-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node-RED dashboard dependencies for the autonomic lift truck",
+  "dependencies": {
+    "node-red-dashboard": "3.6.6"
+  }
+}

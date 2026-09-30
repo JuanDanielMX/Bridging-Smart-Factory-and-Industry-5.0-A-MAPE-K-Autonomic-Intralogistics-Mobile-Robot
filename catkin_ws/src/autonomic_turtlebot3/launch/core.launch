@@ -1,0 +1,32 @@
+<launch>
+  <arg name="mission_file" default="$(find autonomic_turtlebot3)/missions/factory_template.yaml" />
+  <arg name="mqtt_enabled" default="true" />
+  <arg name="start_auxiliary" default="false" />
+  <arg name="simulate_auxiliary" default="false" />
+
+  <node pkg="autonomic_turtlebot3" type="autonomic_manager.py" name="autonomic_manager" output="screen" required="true">
+    <rosparam file="$(find autonomic_turtlebot3)/config/autonomic.yaml" command="load" />
+    <param name="mission_file" value="$(arg mission_file)" />
+  </node>
+
+  <node pkg="autonomic_turtlebot3" type="safety_filter.py" name="safety_filter" output="screen" required="true">
+    <rosparam file="$(find autonomic_turtlebot3)/config/safety.yaml" command="load" />
+  </node>
+
+  <node pkg="autonomic_turtlebot3" type="knowledge_logger.py" name="knowledge_logger" output="screen" />
+
+  <node if="$(arg mqtt_enabled)" pkg="autonomic_turtlebot3" type="mqtt_bridge.py" name="mqtt_bridge" output="screen" required="true">
+    <rosparam file="$(find autonomic_turtlebot3)/config/mqtt.yaml" command="load" />
+  </node>
+
+  <group if="$(arg start_auxiliary)">
+    <node pkg="autonomic_turtlebot3" type="lift_controller.py" name="lift_controller" output="screen" required="true">
+      <rosparam file="$(find autonomic_turtlebot3)/config/lift.yaml" command="load" />
+      <param name="simulation" value="$(arg simulate_auxiliary)" />
+    </node>
+    <node pkg="autonomic_turtlebot3" type="battery_monitor.py" name="battery_monitor" output="screen" required="true">
+      <rosparam file="$(find autonomic_turtlebot3)/config/battery.yaml" command="load" />
+      <param if="$(arg simulate_auxiliary)" name="backend" value="simulation" />
+    </node>
+  </group>
+</launch>

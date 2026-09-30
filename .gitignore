@@ -1,0 +1,10 @@
+.paper_text.txt
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/logs/
+*.db
+*.db-shm
+*.db-wal
+config/runtime.env
+__pycache__/
+*.pyc

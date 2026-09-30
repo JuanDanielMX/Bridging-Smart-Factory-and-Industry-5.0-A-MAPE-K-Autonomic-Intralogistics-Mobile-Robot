@@ -1,0 +1,18 @@
+host: 127.0.0.1
+port: 1883
+keepalive: 30
+client_id: autonomic_turtlebot3
+username: autonomic_robot
+password_env: AUTONOMIC_MQTT_PASSWORD
+master_key_env: AUTONOMIC_MASTER_KEY_HEX
+max_message_age_seconds: 120
+status_rate: 2.0
+orders_topic: factory/secure/orders
+control_topic: factory/secure/control
+status_topic: robot/secure/status
+event_topic: robot/secure/events
+aux_command_topic: robot/secure/lift_command
+aux_status_topic: robot/secure/aux_status
+
+# Set to the CA path and switch port to 8883 when broker TLS is enabled.
+tls_ca_cert: ""

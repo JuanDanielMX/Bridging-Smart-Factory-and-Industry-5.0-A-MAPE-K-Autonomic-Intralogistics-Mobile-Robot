@@ -1,0 +1,17 @@
+user autonomic_robot
+topic read factory/secure/orders
+topic read factory/secure/control
+topic write robot/secure/status
+topic write robot/secure/events
+topic write robot/secure/lift_command
+topic read robot/secure/aux_status
+
+user autonomic_auxiliary
+topic read robot/secure/lift_command
+topic write robot/secure/aux_status
+
+user autonomic_dashboard
+topic write factory/secure/orders
+topic write factory/secure/control
+topic read robot/secure/status
+topic read robot/secure/events

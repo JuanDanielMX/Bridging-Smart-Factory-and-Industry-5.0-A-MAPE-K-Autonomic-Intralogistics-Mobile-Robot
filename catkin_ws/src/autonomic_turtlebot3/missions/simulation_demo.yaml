@@ -1,0 +1,13 @@
+calibrated: true
+frame_id: map
+description: Safe loop for turtlebot3_empty_world; dimensions are in metres/radians.
+actions:
+  - {type: navigate, name: empty_pallet_approach, x: 0.8, y: 0.0, yaw: 0.0}
+  - {type: lift, command: down, duration: 1.5}
+  - {type: wait, duration: 0.5}
+  - {type: lift, command: up, duration: 1.5}
+  - {type: navigate, name: assembly_area, x: 0.8, y: 0.8, yaw: 1.5708}
+  - {type: lift, command: down, duration: 1.5}
+  - {type: navigate, name: delivery_area, x: 0.0, y: 0.8, yaw: 3.1416}
+  - {type: lift, command: up, duration: 1.5}
+  - {type: navigate, name: return_to_warehouse, x: 0.0, y: 0.0, yaw: 0.0}

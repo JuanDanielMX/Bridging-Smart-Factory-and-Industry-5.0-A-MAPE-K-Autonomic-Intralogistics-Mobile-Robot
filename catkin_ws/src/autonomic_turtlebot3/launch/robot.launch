@@ -1,0 +1,5 @@
+<launch>
+  <arg name="model" default="waffle_pi" />
+  <env name="TURTLEBOT3_MODEL" value="$(arg model)" />
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch" />
+</launch>

@@ -1,0 +1,15 @@
+map_frame: map
+base_frame: base_footprint
+auto_start_on_orders: false
+
+# Paper equation: Sf = 0.02 + 0.02B m/s.
+base_speed: 0.02
+speed_per_order: 0.02
+max_orders: 11
+low_battery_fraction: 0.15
+
+stuck:
+  window_seconds: 3.0
+  min_command_speed: 0.03
+  min_odom_motion: 0.08
+  max_localized_motion: 0.025

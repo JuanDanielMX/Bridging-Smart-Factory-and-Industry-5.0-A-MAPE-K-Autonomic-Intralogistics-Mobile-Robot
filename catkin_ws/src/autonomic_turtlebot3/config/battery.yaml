@@ -1,0 +1,9 @@
+backend: ina219
+frame_id: base_link
+i2c_address: 64
+voltage_empty: 12.0
+voltage_full: 14.4
+capacity_ah: 10.0
+smoothing: 0.2
+publish_rate: 1.0
+simulation_runtime_seconds: 1800.0

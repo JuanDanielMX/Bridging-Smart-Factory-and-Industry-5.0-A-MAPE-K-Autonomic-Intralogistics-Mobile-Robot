@@ -1,0 +1,12 @@
+host: 192.168.10.10
+port: 1883
+keepalive: 30
+client_id: autonomic_auxiliary
+username: autonomic_auxiliary
+password_env: AUTONOMIC_MQTT_AUX_PASSWORD
+master_key_env: AUTONOMIC_MASTER_KEY_HEX
+max_message_age_seconds: 120
+status_rate: 2.0
+command_topic: robot/secure/lift_command
+status_topic: robot/secure/aux_status
+tls_ca_cert: ""

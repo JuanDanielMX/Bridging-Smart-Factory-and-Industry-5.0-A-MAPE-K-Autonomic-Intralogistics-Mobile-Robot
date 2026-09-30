@@ -1,0 +1,9 @@
+default_target_speed: 0.12
+command_timeout: 0.5
+scan_timeout: 0.5
+emergency_distance: 0.22
+caution_distance: 0.55
+rotation_emergency_distance: 0.20
+motion_sector_degrees: 40.0
+max_angular_speed: 1.2
+enforce_autonomy_state: true

@@ -1,0 +1,34 @@
+<launch>
+  <arg name="simulation" default="false" />
+  <arg name="mqtt_transport" default="true" />
+  <arg name="mqtt_host" default="192.168.10.10" />
+
+  <group if="$(arg mqtt_transport)">
+    <node pkg="autonomic_turtlebot3" type="lift_controller.py" name="lift_controller" output="screen" required="true">
+      <rosparam file="$(find autonomic_turtlebot3)/config/lift.yaml" command="load" />
+      <param name="simulation" value="$(arg simulation)" />
+      <param name="command_topic" value="/lift/command_local" />
+      <param name="state_topic" value="/lift/state_local" />
+    </node>
+    <node pkg="autonomic_turtlebot3" type="battery_monitor.py" name="battery_monitor" output="screen" required="true">
+      <rosparam file="$(find autonomic_turtlebot3)/config/battery.yaml" command="load" />
+      <param if="$(arg simulation)" name="backend" value="simulation" />
+      <param name="output_topic" value="/battery_state_local" />
+    </node>
+    <node pkg="autonomic_turtlebot3" type="auxiliary_mqtt_bridge.py" name="auxiliary_mqtt_bridge" output="screen" required="true">
+      <rosparam file="$(find autonomic_turtlebot3)/config/auxiliary_mqtt.yaml" command="load" />
+      <param name="host" value="$(arg mqtt_host)" />
+    </node>
+  </group>
+
+  <group unless="$(arg mqtt_transport)">
+    <node pkg="autonomic_turtlebot3" type="lift_controller.py" name="lift_controller" output="screen" required="true">
+      <rosparam file="$(find autonomic_turtlebot3)/config/lift.yaml" command="load" />
+      <param name="simulation" value="$(arg simulation)" />
+    </node>
+    <node pkg="autonomic_turtlebot3" type="battery_monitor.py" name="battery_monitor" output="screen" required="true">
+      <rosparam file="$(find autonomic_turtlebot3)/config/battery.yaml" command="load" />
+      <param if="$(arg simulation)" name="backend" value="simulation" />
+    </node>
+  </group>
+</launch>

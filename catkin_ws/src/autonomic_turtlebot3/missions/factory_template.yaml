@@ -1,0 +1,20 @@
+calibrated: false
+frame_id: map
+description: Replace every pose with measurements from the production map, then set calibrated true.
+actions:
+  - {type: navigate, name: empty_pallet_predock, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: lift, command: down, duration: 8.0, wait_for_state: down_limit}
+  - {type: navigate, name: empty_pallet_dock, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: lift, command: up, duration: 8.0, wait_for_state: up_limit}
+  - {type: navigate, name: empty_pallet_retreat, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: navigate, name: assembly_dock, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: lift, command: down, duration: 8.0, wait_for_state: down_limit}
+  - {type: navigate, name: assembly_retreat, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: wait_for_assembly, duration: 900.0}
+  - {type: navigate, name: assembled_pallet_dock, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: lift, command: up, duration: 8.0, wait_for_state: up_limit}
+  - {type: navigate, name: assembled_pallet_retreat, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: navigate, name: delivery_dock, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: lift, command: down, duration: 8.0, wait_for_state: down_limit}
+  - {type: navigate, name: delivery_retreat, x: 0.0, y: 0.0, yaw: 0.0}
+  - {type: navigate, name: return_to_warehouse, x: 0.0, y: 0.0, yaw: 0.0}

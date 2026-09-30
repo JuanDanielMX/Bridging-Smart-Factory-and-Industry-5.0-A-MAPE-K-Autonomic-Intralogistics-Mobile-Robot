@@ -1,0 +1,7 @@
+<launch>
+  <arg name="model" default="waffle_pi" />
+  <env name="TURTLEBOT3_MODEL" value="$(arg model)" />
+  <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+    <arg name="slam_methods" value="gmapping" />
+  </include>
+</launch>
